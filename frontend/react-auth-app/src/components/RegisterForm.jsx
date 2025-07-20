@@ -41,130 +41,132 @@ const RegisterForm = () => {
   };
 
   return (
-    <div style={{
-      background: '#181A1B',
-      color: '#fff',
-      maxWidth: 480,
-      margin: '40px auto',
-      borderRadius: 16,
-      padding: 32,
-      boxShadow: '0 2px 24px #0008',
-      fontFamily: 'inherit',
-    }}>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username</label>
-          <div style={{ position: 'relative' }}>
-            <span style={{ position: 'absolute', left: 8, top: 10, opacity: 0.6 }}>👤</span>
-            <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={form.username}
-              onChange={handleChange}
-              style={inputStyle}
-              autoComplete="username"
-              required
-            />
-          </div>
+    <div style={outerStyle}>
+      <form onSubmit={handleSubmit} style={formStyle}>
+        <h2 style={{ color: '#ff9800', marginBottom: 28, textAlign: 'center', fontWeight: 700 }}>Create Your Account</h2>
+        <div style={{ marginBottom: 18 }}>
+          <label style={labelStyle}>Username</label>
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={form.username}
+            onChange={handleChange}
+            style={inputStyle}
+            autoComplete="username"
+            required
+          />
         </div>
-        <div style={{ marginTop: 18 }}>
-          <label>Email</label>
-          <div style={{ position: 'relative' }}>
-            <span style={{ position: 'absolute', left: 8, top: 10, opacity: 0.6 }}>✉️</span>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={form.email}
-              onChange={handleChange}
-              style={inputStyle}
-              autoComplete="email"
-              required
-            />
-          </div>
+        <div style={{ marginBottom: 18 }}>
+          <label style={labelStyle}>Email</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            style={inputStyle}
+            autoComplete="email"
+            required
+          />
         </div>
-        <div style={{ marginTop: 18 }}>
-          <label>Phone</label>
-          <div style={{ position: 'relative' }}>
-            <span style={{ position: 'absolute', left: 8, top: 10, opacity: 0.6 }}>📞</span>
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Phone"
-              value={form.phone}
-              onChange={handleChange}
-              style={inputStyle}
-              autoComplete="tel"
-              required
-            />
-          </div>
+        <div style={{ marginBottom: 18 }}>
+          <label style={labelStyle}>Phone</label>
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Phone"
+            value={form.phone}
+            onChange={handleChange}
+            style={inputStyle}
+            autoComplete="tel"
+            required
+          />
         </div>
-        <div style={{ marginTop: 18 }}>
-          <label>Password</label>
-          <div style={{ position: 'relative' }}>
-            <span style={{ position: 'absolute', left: 8, top: 10, opacity: 0.6 }}>🔒</span>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={handleChange}
-              style={inputStyle}
-              autoComplete="new-password"
-              required
-              minLength={8}
-            />
-            <span style={{ position: 'absolute', right: 8, top: 10, opacity: 0.4 }}>🙈</span>
-          </div>
-          <div style={{ fontSize: 12, color: '#aaa', marginTop: 2 }}>Minimum length is 8 characters.</div>
+        <div style={{ marginBottom: 18 }}>
+          <label style={labelStyle}>Password</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password (min 8 chars)"
+            value={form.password}
+            onChange={handleChange}
+            style={inputStyle}
+            autoComplete="new-password"
+            required
+            minLength={8}
+          />
         </div>
-        {error && <div style={{ color: '#ff5252', marginTop: 12 }}>{error}</div>}
-        {success && <div style={{ color: '#baff80', marginTop: 12 }}>{success}</div>}
+        <div style={{ fontSize: 12, color: '#aaa', marginBottom: 10 }}>Minimum length is 8 characters.</div>
+        {error && <div style={{ color: '#ff5252', marginBottom: 12 }}>{error}</div>}
+        {success && <div style={{ color: '#ff9800', marginBottom: 12 }}>{success}</div>}
         <button
           type="submit"
           disabled={loading}
-          style={{
-            width: '100%',
-            marginTop: 24,
-            background: 'linear-gradient(90deg, #faff00 0%, #eaff6b 100%)',
-            color: '#222',
-            fontWeight: 600,
-            border: 'none',
-            borderRadius: 8,
-            padding: '14px 0',
-            fontSize: 18,
-            cursor: loading ? 'not-allowed' : 'pointer',
-            boxShadow: '0 2px 8px #0004',
-            transition: 'filter 0.2s',
-            filter: loading ? 'brightness(0.8)' : 'none',
-          }}
+          style={buttonStyle}
         >
           {loading ? 'Signing Up...' : 'Sign Up'}
         </button>
-        <div style={{ fontSize: 12, color: '#aaa', marginTop: 18 }}>
-          By creating an account, you agree to the <a href="#" style={{ color: '#baff80', textDecoration: 'underline' }}>Terms of Service</a>. We'll occasionally send you account-related emails.
-        </div>
-        <div style={{ textAlign: 'center', marginTop: 18, fontSize: 14 }}>
+        <div style={{ textAlign: 'center', marginTop: 18, fontSize: 14, color: '#ccc' }}>
           Already have an account?{' '}
-          <Link to="/login" style={{ color: '#baff80', textDecoration: 'underline' }}>Login</Link>
+          <Link to="/login" style={{ color: '#ff9800', textDecoration: 'underline' }}>Login</Link>
         </div>
       </form>
     </div>
   );
 };
 
+const outerStyle = {
+  background: '#181A1B',
+  minHeight: '100vh',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
+const formStyle = {
+  background: '#232526',
+  color: '#fff',
+  maxWidth: 400,
+  borderRadius: 18,
+  padding: '40px 32px',
+  boxShadow: '0 2px 24px #0008',
+  fontFamily: 'inherit',
+  width: '100%',
+};
+const labelStyle = {
+  color: '#ff9800',
+  fontWeight: 600,
+  fontSize: 16,
+  marginBottom: 6,
+  display: 'block',
+};
 const inputStyle = {
   width: '100%',
-  padding: '10px 36px',
+  padding: '10px 16px',
   borderRadius: 8,
   border: '1px solid #333',
-  background: '#232526',
+  background: '#181A1B',
   color: '#fff',
   fontSize: 16,
   marginTop: 4,
   outline: 'none',
   boxSizing: 'border-box',
+  marginBottom: 2,
+};
+const buttonStyle = {
+  width: '100%',
+  marginTop: 18,
+  background: 'linear-gradient(90deg, #ff9800 0%, #ffb347 100%)',
+  color: '#222',
+  fontWeight: 700,
+  border: 'none',
+  borderRadius: 8,
+  padding: '14px 0',
+  fontSize: 18,
+  cursor: 'pointer',
+  boxShadow: '0 2px 8px #0004',
+  transition: 'filter 0.2s',
+  filter: 'none',
 };
 
 export default RegisterForm;
