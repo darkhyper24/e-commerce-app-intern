@@ -15,7 +15,7 @@ RUN npm run build
 # Use a lightweight Nginx image to serve the static files
 FROM nginx:alpine
 COPY --from=builder /build/dist /usr/share/nginx/html
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
 #fun fact: EXPOSE is not required for the container to run, but it is a good practice to document which ports are intended to be exposed (supposedly)
 EXPOSE 80 
 CMD ["nginx", "-g", "daemon off;"]
