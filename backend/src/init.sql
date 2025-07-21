@@ -8,6 +8,18 @@ CREATE TABLE IF NOT EXISTS users (
   password TEXT NOT NULL,
   phone TEXT
 );
+CREATE TABLE IF NOT EXISTS cart_items (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL,         
+    product_id UUID NOT NULL,      
+    quantity INT NOT NULL DEFAULT 1,
+    added_at TIMESTAMP DEFAULT NOW(),
+
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (product_id) REFERENCES products(id),
+
+    CONSTRAINT unique_user_product UNIQUE (user_id, product_id) 
+);
 
 CREATE TABLE IF NOT EXISTS order_items
 (
