@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.PNG';
 import { useAuth } from '../contexts/AuthContext';
+import './Navbar.css';
 
 const Navbar = ({ onSearch, onLogout }) => {
   const { isAuthenticated } = useAuth();
@@ -23,12 +24,12 @@ const Navbar = ({ onSearch, onLogout }) => {
         />
       </div>
       <div style={rightStyle}>
-        <Link to="/home" style={linkStyle}>Home</Link>
-        <Link to="/products" style={linkStyle}>Products</Link>
-        <Link to="/cart" style={linkStyle}>Cart</Link>
-        <Link to="/profile" style={linkStyle}>Profile</Link>
-        <Link to="/about" style={linkStyle}>About</Link>
-        <Link to="/faqs" style={linkStyle}>FAQs</Link>
+        <Link to="/home" className="nav-link">Home</Link>
+        <Link to="/products" className="nav-link">Products</Link>
+        <Link to="/cart" className="nav-link">Cart</Link>
+        <Link to="/profile" className="nav-link">Profile</Link>
+        <Link to="/about" className="nav-link">About</Link>
+        <Link to="/faqs" className="nav-link">FAQs</Link>
         {isAuthenticated ? (
           <button onClick={onLogout} style={logoutBtnStyle}>Logout</button>
         ) : (
@@ -51,6 +52,8 @@ const navStyle = {
   top: 0,
   zIndex: 100,
 };
+
+
 const leftStyle = { display: 'flex', alignItems: 'center' };
 const centerStyle = { flex: 1, display: 'flex', justifyContent: 'center' };
 const searchStyle = {
@@ -64,15 +67,6 @@ const searchStyle = {
   outline: 'none',
 };
 const rightStyle = { display: 'flex', alignItems: 'center', gap: 24 };
-const linkStyle = {
-  color: '#fff',
-  textDecoration: 'none',
-  fontWeight: 500,
-  fontSize: 17,
-  transition: 'color 0.2s',
-  padding: '6px 12px',
-  borderRadius: 6,
-};
 const logoutBtnStyle = {
   background: 'linear-gradient(90deg, #ff5252 0%, #ff9800 100%)',
   color: '#fff',
@@ -100,4 +94,4 @@ const loginBtnStyle = {
   transition: 'filter 0.2s',
 };
 
-export default Navbar; 
+export default Navbar;
