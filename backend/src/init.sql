@@ -8,15 +8,27 @@ CREATE TABLE IF NOT EXISTS users (
   password TEXT NOT NULL,
   phone TEXT
 );
+
+CREATE TABLE IF NOT EXISTS order_items
+(
+    id uuid NOT NULL,
+    product_id uuid,
+    order_id uuid,
+    quantity integer NOT NULL,
+    CONSTRAINT orders_pkey PRIMARY KEY (id),
+    CONSTRAINT order_id FOREIGN KEY (order_id)REFERENCES orders (id) MATCH SIMPLE,
+    CONSTRAINT product_id FOREIGN KEY (product_id) REFERENCES products (id) MATCH SIMPLE
+);
+
 CREATE TABLE IF NOT EXISTS orders
 (
     id uuid NOT NULL,
+    order_date timestamp with time zone,
     user_id uuid,
-    product_id uuid,
-    order_date date,
-    CONSTRAINT orders_pkey PRIMARY KEY (id),
-    CONSTRAINT product_id FOREIGN KEY (product_id) REFERENCES products (id) MATCH SIMPLE,
+    status text COLLATE pg_catalog."default",
+    CONSTRAINT orders_pkey1 PRIMARY KEY (id),
     CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES users (id) MATCH SIMPLE
+
 );
 CREATE TABLE IF NOT EXISTS products
 (
