@@ -35,35 +35,37 @@ const LoginForm = () => {
       setSuccess('Login successful! Redirecting...');
       setTimeout(() => navigate('/home'), 1500);
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Login failed. Please check your credentials.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={outerStyle}>
+    <div style={formContainerStyle}>
       <form onSubmit={handleSubmit} style={formStyle}>
-        <h2 style={{ color: '#ff9800', marginBottom: 28, textAlign: 'center', fontWeight: 700 }}>Sign In to Smart.cart</h2>
-        <div style={{ marginBottom: 18 }}>
+        <h2 style={headingStyle}>Sign In</h2>
+        
+        <div style={formGroupStyle}>
           <label style={labelStyle}>Email</label>
           <input
-            type="text"
+            type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Enter your email address"
             value={form.email}
             onChange={handleChange}
             style={inputStyle}
-            autoComplete="username"
+            autoComplete="email"
             required
           />
         </div>
-        <div style={{ marginBottom: 18 }}>
+        
+        <div style={formGroupStyle}>
           <label style={labelStyle}>Password</label>
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Enter your password"
             value={form.password}
             onChange={handleChange}
             style={inputStyle}
@@ -71,85 +73,174 @@ const LoginForm = () => {
             required
           />
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
-          <input
-            type="checkbox"
-            name="remember"
-            checked={form.remember}
-            onChange={handleChange}
-            style={{ marginRight: 8 }}
-          />
-          <label style={{ color: '#ccc', fontSize: 15 }}>Remember Me</label>
+        
+        <div style={rememberForgotStyle}>
+          <div style={checkboxContainerStyle}>
+            <input
+              type="checkbox"
+              id="remember"
+              name="remember"
+              checked={form.remember}
+              onChange={handleChange}
+              style={checkboxStyle}
+            />
+            <label htmlFor="remember" style={checkboxLabelStyle}>Remember me</label>
+          </div>
+          <Link to="/forgot-password" style={forgotPasswordStyle}>
+            Forgot password?
+          </Link>
         </div>
+        
         {error && <div style={{ color: '#ff5252', marginBottom: 12 }}>{error}</div>}
         {success && <div style={{ color: '#ff9800', marginBottom: 12 }}>{success}</div>}
+        
         <button
           type="submit"
           disabled={loading}
-          style={buttonStyle}
+          style={{
+            ...buttonStyle,
+            filter: loading ? 'brightness(0.9)' : 'none',
+          }}
         >
-          {loading ? 'Logging in...' : 'Login'}
+          {loading ? 'Signing In...' : 'Sign In'}
         </button>
-        <div style={{ textAlign: 'center', marginTop: 18, fontSize: 14, color: '#ccc' }}>
-          Do not have an account?{' '}
-          <Link to="/register" style={{ color: '#ff9800', textDecoration: 'underline' }}>Sign Up</Link>
+        
+        <div style={registerLinkStyle}>
+          Don't have an account?{' '}
+          <Link to="/register" style={linkStyle}>Create one</Link>
         </div>
       </form>
     </div>
   );
 };
 
-const outerStyle = {
-  background: '#181A1B',
-  minHeight: '100vh',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+const formContainerStyle = {
+  width: '100%',
 };
+
 const formStyle = {
   background: '#232526',
-  color: '#fff',
-  maxWidth: 400,
-  borderRadius: 18,
-  padding: '40px 32px',
-  boxShadow: '0 2px 24px #0008',
-  fontFamily: 'inherit',
+  borderRadius: '18px',
+  padding: '40px',
+  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
   width: '100%',
+  border: '1px solid rgba(255, 255, 255, 0.05)',
 };
+
+const headingStyle = {
+  color: '#ff9800',
+  fontSize: '32px',
+  textAlign: 'center',
+  marginBottom: '32px',
+  fontWeight: '700',
+};
+
+const formGroupStyle = {
+  marginBottom: '24px',
+};
+
 const labelStyle = {
   color: '#ff9800',
-  fontWeight: 600,
-  fontSize: 16,
-  marginBottom: 6,
+  fontWeight: '600',
+  fontSize: '16px',
+  marginBottom: '8px',
   display: 'block',
 };
+
 const inputStyle = {
   width: '100%',
-  padding: '10px 16px',
-  borderRadius: 8,
+  padding: '14px 16px',
+  borderRadius: '10px',
   border: '1px solid #333',
-  background: '#181A1B',
+  background: 'rgba(24, 26, 27, 0.8)',
   color: '#fff',
-  fontSize: 16,
-  marginTop: 4,
+  fontSize: '16px',
   outline: 'none',
+  transition: 'border-color 0.3s, box-shadow 0.3s',
   boxSizing: 'border-box',
-  marginBottom: 2,
+  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15) inset',
+  '&:focus': {
+    borderColor: '#ff9800',
+    boxShadow: '0 0 0 2px rgba(255, 152, 0, 0.2)'
+  }
 };
+
+const rememberForgotStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: '24px',
+};
+
+const checkboxContainerStyle = {
+  display: 'flex',
+  alignItems: 'center',
+};
+
+const checkboxStyle = {
+  marginRight: '10px',
+  cursor: 'pointer',
+  width: '16px',
+  height: '16px',
+};
+
+const checkboxLabelStyle = {
+  color: '#ccc',
+  fontSize: '14px',
+  cursor: 'pointer',
+};
+
+const forgotPasswordStyle = {
+  color: '#ff9800',
+  fontSize: '14px',
+  textDecoration: 'none',
+  fontWeight: '600',
+  transition: 'color 0.2s',
+  '&:hover': {
+    color: '#ffb347'
+  }
+};
+
+
+
+
 const buttonStyle = {
   width: '100%',
-  marginTop: 18,
   background: 'linear-gradient(90deg, #ff9800 0%, #ffb347 100%)',
   color: '#222',
-  fontWeight: 700,
+  fontWeight: '700',
   border: 'none',
-  borderRadius: 8,
-  padding: '14px 0',
-  fontSize: 18,
+  borderRadius: '10px',
+  padding: '16px 0',
+  fontSize: '18px',
   cursor: 'pointer',
-  boxShadow: '0 2px 8px #0004',
-  transition: 'filter 0.2s',
-  filter: 'none',
+  boxShadow: '0 4px 12px rgba(255, 152, 0, 0.3)',
+  transition: 'transform 0.2s, filter 0.2s, box-shadow 0.2s',
+  '&:hover': {
+    transform: 'translateY(-2px)',
+    boxShadow: '0 6px 14px rgba(255, 152, 0, 0.4)',
+  },
+  '&:active': {
+    transform: 'translateY(1px)',
+    boxShadow: '0 2px 8px rgba(255, 152, 0, 0.4)',
+  }
+};
+
+const registerLinkStyle = {
+  textAlign: 'center',
+  marginTop: '28px',
+  fontSize: '15px',
+  color: '#aaa',
+};
+
+const linkStyle = {
+  color: '#ff9800',
+  textDecoration: 'none',
+  fontWeight: '600',
+  transition: 'color 0.2s',
+  '&:hover': {
+    color: '#ffb347'
+  }
 };
 
 export default LoginForm;

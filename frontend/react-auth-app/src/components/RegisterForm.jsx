@@ -41,15 +41,16 @@ const RegisterForm = () => {
   };
 
   return (
-    <div style={outerStyle}>
+    <div style={formContainerStyle}>
       <form onSubmit={handleSubmit} style={formStyle}>
-        <h2 style={{ color: '#ff9800', marginBottom: 28, textAlign: 'center', fontWeight: 700 }}>Create Your Account</h2>
-        <div style={{ marginBottom: 18 }}>
+        <h2 style={headingStyle}>Create Your Account</h2>
+        
+        <div style={formGroupStyle}>
           <label style={labelStyle}>Username</label>
           <input
             type="text"
             name="username"
-            placeholder="Username"
+            placeholder="Choose a username"
             value={form.username}
             onChange={handleChange}
             style={inputStyle}
@@ -57,12 +58,13 @@ const RegisterForm = () => {
             required
           />
         </div>
-        <div style={{ marginBottom: 18 }}>
+        
+        <div style={formGroupStyle}>
           <label style={labelStyle}>Email</label>
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Your email address"
             value={form.email}
             onChange={handleChange}
             style={inputStyle}
@@ -70,12 +72,13 @@ const RegisterForm = () => {
             required
           />
         </div>
-        <div style={{ marginBottom: 18 }}>
+        
+        <div style={formGroupStyle}>
           <label style={labelStyle}>Phone</label>
           <input
             type="tel"
             name="phone"
-            placeholder="Phone"
+            placeholder="Your phone number"
             value={form.phone}
             onChange={handleChange}
             style={inputStyle}
@@ -83,12 +86,13 @@ const RegisterForm = () => {
             required
           />
         </div>
-        <div style={{ marginBottom: 18 }}>
+        
+        <div style={formGroupStyle}>
           <label style={labelStyle}>Password</label>
           <input
             type="password"
             name="password"
-            placeholder="Password (min 8 chars)"
+            placeholder="Create a secure password"
             value={form.password}
             onChange={handleChange}
             style={inputStyle}
@@ -96,77 +100,108 @@ const RegisterForm = () => {
             required
             minLength={8}
           />
+          <div style={passwordHintStyle}>Minimum length is 8 characters.</div>
         </div>
-        <div style={{ fontSize: 12, color: '#aaa', marginBottom: 10 }}>Minimum length is 8 characters.</div>
+        
         {error && <div style={{ color: '#ff5252', marginBottom: 12 }}>{error}</div>}
         {success && <div style={{ color: '#ff9800', marginBottom: 12 }}>{success}</div>}
+
         <button
           type="submit"
           disabled={loading}
           style={buttonStyle}
         >
-          {loading ? 'Signing Up...' : 'Sign Up'}
+          {loading ? 'Creating Account...' : 'Create Account'}
         </button>
-        <div style={{ textAlign: 'center', marginTop: 18, fontSize: 14, color: '#ccc' }}>
+        
+        <div style={loginLinkStyle}>
           Already have an account?{' '}
-          <Link to="/login" style={{ color: '#ff9800', textDecoration: 'underline' }}>Login</Link>
+          <Link to="/login" style={linkStyle}>Login</Link>
         </div>
       </form>
     </div>
   );
 };
 
-const outerStyle = {
-  background: '#181A1B',
-  minHeight: '100vh',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+const formContainerStyle = {
+  width: '100%',
+  maxWidth: '450px',
 };
+
 const formStyle = {
   background: '#232526',
-  color: '#fff',
-  maxWidth: 400,
-  borderRadius: 18,
-  padding: '40px 32px',
-  boxShadow: '0 2px 24px #0008',
-  fontFamily: 'inherit',
+  borderRadius: '18px',
+  padding: '40px',
+  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.3)',
   width: '100%',
 };
+
+const headingStyle = {
+  color: '#ff9800',
+  fontSize: '28px',
+  textAlign: 'center',
+  marginBottom: '32px',
+  fontWeight: '700',
+};
+
+const formGroupStyle = {
+  marginBottom: '20px',
+};
+
 const labelStyle = {
   color: '#ff9800',
-  fontWeight: 600,
-  fontSize: 16,
-  marginBottom: 6,
+  fontWeight: '600',
+  fontSize: '16px',
+  marginBottom: '8px',
   display: 'block',
 };
+
 const inputStyle = {
   width: '100%',
-  padding: '10px 16px',
-  borderRadius: 8,
+  padding: '12px 16px',
+  borderRadius: '8px',
   border: '1px solid #333',
   background: '#181A1B',
   color: '#fff',
-  fontSize: 16,
-  marginTop: 4,
+  fontSize: '16px',
   outline: 'none',
+  transition: 'border-color 0.2s',
   boxSizing: 'border-box',
-  marginBottom: 2,
 };
+
+const passwordHintStyle = {
+  fontSize: '12px',
+  color: '#aaa',
+  marginTop: '6px',
+};
+
+
+
 const buttonStyle = {
   width: '100%',
-  marginTop: 18,
   background: 'linear-gradient(90deg, #ff9800 0%, #ffb347 100%)',
   color: '#222',
-  fontWeight: 700,
+  fontWeight: '700',
   border: 'none',
-  borderRadius: 8,
+  borderRadius: '8px',
   padding: '14px 0',
-  fontSize: 18,
+  fontSize: '18px',
   cursor: 'pointer',
-  boxShadow: '0 2px 8px #0004',
-  transition: 'filter 0.2s',
-  filter: 'none',
+  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+  transition: 'transform 0.2s, filter 0.2s',
+};
+
+const loginLinkStyle = {
+  textAlign: 'center',
+  marginTop: '24px',
+  fontSize: '15px',
+  color: '#ccc',
+};
+
+const linkStyle = {
+  color: '#ff9800',
+  textDecoration: 'none',
+  fontWeight: '600',
 };
 
 export default RegisterForm;
