@@ -30,6 +30,13 @@ const Home = () => {
     }
   };
 
+  // New function to handle viewing a product's details
+  const handleViewProduct = (productId) => {
+    // Navigate to products page with a query parameter
+    // This will allow the Products page to focus on the selected product
+    navigate(`/products?id=${productId}`);
+  };
+
   const filteredProducts = mockProducts.filter(p =>
     p.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -57,7 +64,12 @@ const Home = () => {
                 <img src={product.image} alt={product.name} style={imgStyle} />
                 <div style={{ color: '#fff', fontWeight: 600, fontSize: 20, marginTop: 12 }}>{product.name}</div>
                 <div style={{ color: '#ff9800', fontWeight: 700, fontSize: 18, marginTop: 6 }}>${product.price}</div>
-                <button style={buyBtnStyle}>Add to Cart</button>
+                <button 
+                  style={viewBtnStyle} 
+                  onClick={() => handleViewProduct(product.id)}
+                >
+                  View Details
+                </button>
               </div>
             ))
           )}
@@ -99,7 +111,7 @@ const imgStyle = {
   borderRadius: 12,
   boxShadow: '0 2px 8px #0004',
 };
-const buyBtnStyle = {
+const viewBtnStyle = {
   marginTop: 18,
   background: 'linear-gradient(90deg, #ff9800 0%, #ffb347 100%)',
   color: '#222',
