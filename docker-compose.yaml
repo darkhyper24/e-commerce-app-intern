@@ -39,6 +39,9 @@ services:
       - postgres
     networks:
       - app-network
+    volumes:
+    - ./backend/src/docker-entrypoint.sh:/docker-entrypoint.sh
+    command: ["sh", "/home/node/code/docker-entrypoint.sh"]
 
 # run the postgres database and redis cache
   postgres:
