@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS cart_items (
     user_id UUID NOT NULL,         
     product_id UUID NOT NULL,      
     quantity INT NOT NULL DEFAULT 1,
-    added_at TIMESTAMP DEFAULT NOW(),
+    added_at timestamp with time zone,
 
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (product_id) REFERENCES products(id),
@@ -50,5 +50,6 @@ CREATE TABLE IF NOT EXISTS products
     description text COLLATE pg_catalog."default" NOT NULL,
     category text COLLATE pg_catalog."default" NOT NULL,
     photo bytea,
+    price integer NOT NULL,
     CONSTRAINT products_pkey PRIMARY KEY (id)
 );
