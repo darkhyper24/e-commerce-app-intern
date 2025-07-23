@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS products
     quantity integer NOT NULL,
     description text COLLATE pg_catalog."default" NOT NULL,
     category text COLLATE pg_catalog."default" NOT NULL,
-    photo bytea,
+    photo text,
     price integer NOT NULL,
     CONSTRAINT products_pkey PRIMARY KEY (id)
 );

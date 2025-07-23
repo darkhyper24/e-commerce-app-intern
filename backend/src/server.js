@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const db = require('./database/db');
 const authRoutes = require('./routes/authRoutes');
+const homeRoutes = require('./routes/homeRoutes');
+const { products } = require('./models/products');
 require('dotenv').config();
 
 const app = express();
@@ -22,13 +24,27 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
-
-// TODO: Add your payment gateway routes here
-// app.use('/api/payments', paymentRoutes);
-// app.use('/api/transactions', transactionRoutes);
-// app.use('/api/users', userRoutes);
+app.use('/api', homeRoutes);
 
 
-app.listen(PORT, () => {
-  console.log(`listening on http://localhost:${PORT}`);
-});
+
+const startServer = async () => {
+  try {
+    console.log('🔄 Syncing database models...');
+    
+    // Sync the products model to create the table
+    await products.sync({ force: false });
+    console.log('✅ Products table synced successfully');
+    
+    // Start the server
+    app.listen(PORT, () => {
+      console.log(`🚀 Server listening on http://localhost:${PORT}`);
+    });
+    
+  } catch (error) {
+    console.error('❌ Error starting server:', error);
+    process.exit(1);
+  }
+};
+
+startServer();

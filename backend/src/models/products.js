@@ -25,7 +25,7 @@ const products = sequelize.define('products', {
         allowNull:false,
     },
     photo:{
-        type:DataTypes.BLOB,
+        type:DataTypes.TEXT,
         allowNull:true
     },
     price:{

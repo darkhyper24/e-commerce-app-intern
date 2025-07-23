@@ -1,39 +1,42 @@
-# Wait for database to be ready
+
 echo "Waiting for database..."
-sleep 5
-
-# Run the application
-node server.js &
-
+sleep 10
 
 echo "Checking if database needs seeding..."
-node -e '
-const { Pool } = require("pg");
+node -e "
+const { Pool } = require('pg');
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL
 });
 
-async function checkIfDataExists() {
+async function checkAndSeed() {
   try {
+    console.log('Connecting to database...');
     const client = await pool.connect();
-    const result = await client.query("SELECT COUNT(*) FROM users");
-    const userCount = parseInt(result.rows[0].count);
+    
+    // Check if products table exists and has data
+    const result = await client.query('SELECT COUNT(*) FROM products');
+    const productCount = parseInt(result.rows[0].count);
     client.release();
     
-    if (userCount === 0) {
-      console.log("🌱 No users found. Running seeders...");
-      require("./seeder/main").runSeeders();
+    console.log(\`Found \${productCount} products in database\`);
+    
+    if (productCount === 0) {
+      console.log('🌱 No products found. Running seeders...');
+      const { runSeeders } = require('./seeder/main');
+      await runSeeders();
+      console.log('✅ Seeding completed');
     } else {
-      console.log("✅ Database already seeded. Skipping seeder.");
+      console.log('✅ Database already seeded. Skipping seeder.');
     }
   } catch (err) {
-    console.error("Error checking database:", err);
-    process.exit(1);
+    console.error('Error checking database:', err);
+    console.log('⚠️ Continuing without seeding...');
   }
 }
 
-checkIfDataExists();
-'
+checkAndSeed();
+"
 
-# Keep container running
-wait
+echo "Starting Node.js server..."
+node server.js
