@@ -1,6 +1,6 @@
 
 echo "Waiting for database..."
-sleep 10
+sleep 6
 
 echo "Checking if database needs seeding..."
 node -e "

@@ -6,7 +6,7 @@ RUN npm ci
 COPY . .
 
 FROM alpine:3.19
-RUN apk add --update nodejs npm bash
+RUN apk add --update nodejs bash
 RUN addgroup -S node && adduser -S node -G node
 USER node
 RUN mkdir /home/node/code
@@ -19,4 +19,4 @@ RUN chmod +x docker-entrypoint.sh
 USER node
 
 EXPOSE 4000
-CMD ["bash", "docker-entrypoint.sh"]
+CMD ["sh", "docker-entrypoint.sh"]

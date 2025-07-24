@@ -9,7 +9,10 @@ import Profile from './pages/Profile';
 import About from './pages/About';
 import FAQs from './pages/FAQs';
 
+import { CartProvider } from './contexts/CartContext';
+
 const App = () => (
+  <CartProvider>
   <Router>
     <Routes>
       <Route path="/" element={<Register />} />
@@ -23,6 +26,7 @@ const App = () => (
       <Route path="/profile" element={<Profile />} />
     </Routes>
   </Router>
+  </CartProvider>
 );
 
 export default App;

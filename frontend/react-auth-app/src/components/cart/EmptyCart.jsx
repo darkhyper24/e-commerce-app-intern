@@ -1,35 +1,62 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-const EmptyCart = () => {
+const EmptyCart = ({ onContinueShopping }) => {
   return (
     <div style={emptyCartStyle}>
-      <p style={{ color: '#ccc', fontSize: 18, marginBottom: 24 }}>Your cart is empty</p>
-      <Link to="/products" style={continueBtnStyle}>
+      <div style={iconStyle}>🛒</div>
+      <h2 style={titleStyle}>Your cart is empty</h2>
+      <p style={messageStyle}>Looks like you haven't added any products to your cart yet.</p>
+      <button 
+        style={shopNowButtonStyle}
+        onClick={onContinueShopping}
+      >
         Continue Shopping
-      </Link>
+      </button>
     </div>
   );
 };
 
 // Styles
 const emptyCartStyle = {
-  background: '#232526',
-  padding: 40,
-  borderRadius: 16,
-  boxShadow: '0 2px 16px #0006',
-  marginTop: 24,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '64px 24px',
+  backgroundColor: '#232526',
+  borderRadius: '16px',
+  boxShadow: '0 2px 24px #0008',
 };
 
-const continueBtnStyle = {
-  display: 'inline-block',
+const iconStyle = {
+  fontSize: '64px',
+  marginBottom: '24px',
+};
+
+const titleStyle = {
+  color: '#ff9800',
+  fontSize: '28px',
+  margin: '0 0 16px 0',
+};
+
+const messageStyle = {
+  color: '#ccc',
+  fontSize: '16px',
+  maxWidth: '400px',
+  textAlign: 'center',
+  marginBottom: '32px',
+};
+
+const shopNowButtonStyle = {
   background: 'linear-gradient(90deg, #ff9800 0%, #ffb347 100%)',
   color: '#222',
-  fontWeight: 700,
-  textDecoration: 'none',
-  padding: '12px 24px',
-  borderRadius: 8,
-  boxShadow: '0 2px 8px #0004',
+  fontWeight: 'bold',
+  border: 'none',
+  borderRadius: '8px',
+  padding: '12px 32px',
+  fontSize: '16px',
+  cursor: 'pointer',
+  transition: 'transform 0.1s, filter 0.2s',
 };
 
 export default EmptyCart;

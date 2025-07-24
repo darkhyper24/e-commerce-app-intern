@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const CartSummary = ({ totalAmount }) => {
+const CartSummary = ({ totalAmount, onCheckout }) => {
   return (
     <div style={summaryStyle}>
       <div style={summaryRowStyle}>
@@ -18,7 +18,10 @@ const CartSummary = ({ totalAmount }) => {
       </div>
       
       <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <button style={checkoutBtnStyle}>
+        <button 
+          style={checkoutBtnStyle}
+          onClick={onCheckout} // Add click handler
+        >
           Proceed to Checkout
         </button>
         <Link to="/products" style={continueShoppingLinkStyle}>

@@ -5,7 +5,9 @@ const cookieParser = require('cookie-parser');
 const db = require('./database/db');
 const authRoutes = require('./routes/authRoutes');
 const homeRoutes = require('./routes/homeRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 const { products } = require('./models/products');
+const { cart_items } = require('./models/cart_items');
 require('dotenv').config();
 
 const app = express();
@@ -24,25 +26,26 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/cart', cartRoutes);
 app.use('/api', homeRoutes);
-
-
 
 const startServer = async () => {
   try {
     console.log('🔄 Syncing database models...');
     
-    // Sync the products model to create the table
+    // Sync both models
     await products.sync({ force: false });
     console.log('✅ Products table synced successfully');
     
+    await cart_items.sync({ force: false });
+    console.log('✅ Cart items table synced successfully');
+    
     // Start the server
     app.listen(PORT, () => {
-      console.log(`🚀 Server listening on http://localhost:${PORT}`);
+      console.log(`🚀 Server running on port ${PORT}`);
     });
-    
   } catch (error) {
-    console.error('❌ Error starting server:', error);
+    console.error('❌ Failed to start server:', error);
     process.exit(1);
   }
 };
